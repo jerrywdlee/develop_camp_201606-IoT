@@ -4,7 +4,7 @@
 # 使い方
 + 環境
 ```
-ruby
+ruby > 1.9.7
 nodejs
 ```
 
@@ -17,4 +17,16 @@ $ npm install
 # gemのインストール
 # railsなどがある前提で
 $ gem install socket.io-client-simple
+```
+
++ 動かしてみる
+```shell
+# Server スクリプトの起動
+$ node samples_for_socketio/nodejs\(server\)/sample_server.js
+
+# Client スクリプトの起動
+$ ruby samples_for_socketio/ruby\(client\)/sample.rb
+
+# !!注意!! gem socket.io-client-simpleの欠陥で、
+# サーバーが再起動する場合、必ずクライアントも再起動してくだい
 ```
