@@ -33,5 +33,5 @@ $ ruby samples_for_socketio/ruby\(client\)/sample.rb
 # データ形式
 * イベント:`real_time_report`
 ```ruby
-{"instr_name"=>"test_rb", "sample_time"=>"2016-05-31 16:59:40.770", "raw_data""{\"ruby\" : \"Hello Ruby\"}", "pushed"=>0, "socket_id"=>"/#H-fhBz0Lry12iV6gAA", "client_local_ip"=>"[::ffff:127.0.0.1]:"}
+{"instr_name"=>"test_rb", "sample_time"=>"2016-05-31 17:10:08.727", "raw_data"=>"{\"ruby\" : \"Hello Ruby\"}", "pushed"=>0, "socket_id"=>"/#SrCrZiFIYDWKyH34AAAB", "client_local_ip"=>"[::ffff:127.0.0.1]:"}
 ```
