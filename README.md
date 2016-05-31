@@ -30,3 +30,8 @@ $ ruby samples_for_socketio/ruby\(client\)/sample.rb
 # !!注意!! gem socket.io-client-simpleの欠陥で、
 # サーバーが再起動する場合、必ずクライアントも再起動してくだい
 ```
+# データ形式
+* イベント:`real_time_report`
+```ruby
+{"instr_name"=>"test_rb", "sample_time"=>"2016-05-31 16:59:40.770", "raw_data""{\"ruby\" : \"Hello Ruby\"}", "pushed"=>0, "socket_id"=>"/#H-fhBz0Lry12iV6gAA", "client_local_ip"=>"[::ffff:127.0.0.1]:"}
+```
