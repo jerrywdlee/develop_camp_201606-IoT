@@ -18,18 +18,20 @@ io.on('connection', function(socket) {
   socket.on('instr_status',function (instr_list) {
     console.log("instr_list:"+instr_list);
   });
-  socket.on('log_in',function (device_name,hashed_password) {
+  socket.on('log_in',function (device_name,hashed_password,uuid) {
     userIdType[id].device_name = device_name;
     userIdType[id].hashed_password = hashed_password;
+    userIdType[id].uuid = uuid;
     console.log(device_name+" Log In");
-    if (!name_id_table[device_name]) {
+    //if (!name_id_table[device_name]) {
       name_id_table[device_name] = id;
-    }else {
-      console.error("Device \""+device_name+"\" Exsited!!");
-    }
+    //}else {
+      //console.error("Device \""+device_name+"\" Exsited!!");
+    //}
   })
   socket.on('real_time_report',function (temp_data_obj) {
     temp_data_obj.socket_id = id;
+    temp_data_obj.device_name = userIdType[id].device_name;
     temp_data_obj.client_local_ip = client_ip;
     //temp_data_obj.network_delay = network_delay;
     console.log("temp_data_obj:"+temp_data_obj);
