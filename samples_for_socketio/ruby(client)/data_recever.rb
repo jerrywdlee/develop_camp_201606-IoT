@@ -3,7 +3,7 @@ STDOUT.sync = true # windows用のまじない
 require 'rubygems'
 require 'socket.io-client-simple'
 
-url    = 'http://localhost:80' # URLはサーバーの
+url    = 'http://localhost:3333' # URLはサーバーの
 socket = SocketIO::Client::Simple.connect url
 
 socket.on :connect do
@@ -24,11 +24,11 @@ socket.on :network_delay do |network_delay|
   p "Delay : #{network_delay}"
 end
 
-socket.emit :send_data_realtime,"TestDevice01","test_rb","from_rb"
+socket.emit :send_data_realtime,"test_dev_lee_mac01","test_rb","from_rb"
 
-socket.emit :network_delay,"TestDevice01"
+socket.emit :network_delay,"test_dev_lee_mac01"
 
-socket.emit :reg,"TestDevice01"
+socket.emit :reg,"test_dev_lee_mac01"
 
 socket.on :error do |err|
   p err
@@ -39,10 +39,10 @@ loop do
   msg = STDIN.gets.strip
   next if msg.empty?
   if msg == "reg"
-    socket.emit :reg,"TestDevice01"
+    socket.emit :reg,"test_dev_lee_mac01"
   end
   if msg == "delay"
-    socket.emit :network_delay,"TestDevice01"
+    socket.emit :network_delay,"test_dev_lee_mac01"
   end
   socket.emit :chat, {:msg => msg, :at => Time.now}
 end
