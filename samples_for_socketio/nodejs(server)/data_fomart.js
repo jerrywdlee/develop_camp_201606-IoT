@@ -1,5 +1,5 @@
 // socket.ioモジュールの導入
-var io = require('socket.io').listen(80);
+var io = require('socket.io').listen(3333);
 var userIdType = {};
 var name_id_table = {};
 console.log("Server On !");
@@ -36,15 +36,18 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('real_time_report',temp_data_obj);
   })
   socket.on('send_data_realtime',function (target_name,instr_name,msg) {
-    sockets.to(name_id_table[target_name]).emit('real_time_control',instr_name,msg);
+    io.sockets.to(name_id_table[target_name]).emit('real_time_control',instr_name,msg);
   })
   socket.on('network_delay',function (target_name) {
     startTime = Date.now();
-    sockets.to(name_id_table[target_name]).emit('ping',startTime,id);
+    console.log("startTime:"+startTime);
+    console.log("id:"+id);
+    io.sockets.to(name_id_table[target_name]).emit('ping',startTime,id);
   })
   socket.on('pong_client',function (time_stamp,query_id) {
     network_delay = Date.now()-time_stamp
     console.log("network_delay:"+network_delay);
+    console.log("query_id:"+query_id);
     io.sockets.to(query_id).emit('network_delay',network_delay)
   })
   socket.on('reg',function (target_name) {
