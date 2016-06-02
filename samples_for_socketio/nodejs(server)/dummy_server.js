@@ -35,9 +35,30 @@ io.on('connection', function(socket) {
     temp_data_obj.device_uuid = userIdType[id].uuid;
     temp_data_obj.client_local_ip = client_ip;
     //temp_data_obj.network_delay = network_delay;
-    console.log("temp_data_obj:"+temp_data_obj);
+    console.log("temp_data_obj:");
+    console.log(temp_data_obj);
     socket.broadcast.emit('real_time_report',temp_data_obj);
   })
+  //ダミーサーバー用自動発信ロジック
+  // 5sごとダミーデータを送信
+  setInterval(function () {
+    var dummy_data = { instr_name: 'dummy_data01', //計器(登録したセンサー)の名前
+                       sample_time: '2016-06-02 06:42:53.154', //計測した時のタイム(GMT)
+                       raw_data: '{"dummy":675}', //収集されたデータ(json文字列)
+                       pushed: 0, //サーバー側では使わない、IoT側のFLAG
+                       socket_id: '/#462w2S9eUe0qNUg6AAAA', //socketのセッションID
+                       device_name: 'dummy_raspi01', //デバイス(raspi)の名前
+                       device_uuid: '2016-06-01T06:27:48.353Z8bb8', //raspiのUUID
+                       client_local_ip: '::ffff:192.168.11.104' //raspiのIP
+                     }
+    dummy_data.raw_data = random_data("dummy");
+    dummy_data.sample_time = time_stamp();
+    console.log("dummy_data:");
+    console.log(dummy_data);
+    socket.broadcast.emit('real_time_report',dummy_data);
+  },5000)
+
+
   socket.on('send_data_realtime',function (target_name,instr_name,msg) {
     io.sockets.to(name_id_table[target_name]).emit('real_time_control',instr_name,msg);
   })
@@ -90,4 +111,21 @@ function show_client_ip(socket,no_port) {
       var ip_v4 = ip+':'+port
       return ip_v4
   }
+}
+
+function random_data(key,max,min) {
+  if (!max||!min) {
+    max = 1023;
+    min = 0
+  }
+  var value = Math.floor( Math.random() * (max - min + 1) ) + min;
+  return '{"'+key+'":'+value+'}'
+}
+//make a time stamp like 2016-01-06 04:41:13.636
+function time_stamp () {
+	var now = new Date();
+	var timeNowISO = now.toISOString();//2016-01-06T04:38:02.561Z
+	var theTimeNow=timeNowISO.split('T')[0]+" "+timeNowISO.split('T')[1].split('Z')[0];
+	return theTimeNow;
+	//console.log("time: "+theTimeNow);//2016-01-06 04:41:13.636
 }
