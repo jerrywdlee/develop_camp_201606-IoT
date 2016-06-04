@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
@@ -15,6 +14,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 # gem socket
 gem "socket.io-client-simple"
+# gem create graph
+gem "chartkick", "~> 1.2.4"
 # gem send mail
 gem "sendgrid"
 # Use jquery as the JavaScript library

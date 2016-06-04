@@ -12,7 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require socket.io-1.4.5.js
 //= require fusioncharts
 //= require fusioncharts.widgets
+//= require chartkick
 //= require turbolinks
 //= require_tree .
