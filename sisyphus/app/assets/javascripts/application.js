@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require fusioncharts
 //= require fusioncharts.widgets
+//= require chartkick
 //= require turbolinks
 //= require_tree .
