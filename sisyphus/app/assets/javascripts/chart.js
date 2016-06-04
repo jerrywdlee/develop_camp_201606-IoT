@@ -17,7 +17,7 @@ FusionCharts.ready(function(){
         "caption": "残業",
         "subcaptionFontBold": "0",
         "lowerLimit": "0",
-        "upperLimit": "120",
+        "upperLimit": "100",
         "lowerLimitDisplay": "Empty",
         "upperLimitDisplay": "Full",
         "numberSuffix": "%",
@@ -25,21 +25,17 @@ FusionCharts.ready(function(){
         "showhovereffect": "1",
         "bgCOlor": "#ffffff",
         "borderAlpha": "0",
-        "cylFillColor": "#008ee4"
+        "cylFillColor": "eeeeee"
       },
-      "value": "110"
+      "value": "0"
     },
     "events":{
       "rendered": function(evtObj, argObj){
         setInterval(function () {
           socket.on("real_time_report", function(data){
             FusionCharts("fuelMeter").feedData("&value=" + data.raw_data.match(/\d+/)[0]);
-          }
-            )
-          // (fuelVolume < 10) ? (fuelVolume = 110) : "";
-          // var consVolume = "30"
-          // FusionCharts("fuelMeter").feedData("&value=" + consVolume);
-          // fuelVolume = consVolume;
+            $("#present-number").text(data.raw_data.match(/\d+/)[0] + "%")
+          })
         }, 1000);
       }
     }
