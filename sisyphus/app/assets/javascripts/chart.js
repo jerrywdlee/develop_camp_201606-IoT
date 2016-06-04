@@ -4,11 +4,11 @@ FusionCharts.ready(function(){
     dataFormat: 'json',
     id: 'fuelMeter',
     renderAt: 'chart-container',
-    width: '200',
-    height: '250',
+    width: '250',
+    height: '300',
     dataSource: {
       "chart": {
-        "caption": "残量",
+        "caption": "ウォーターサーバ",
         "subcaptionFontBold": "0",
         "lowerLimit": "0",
         "upperLimit": "120",
@@ -17,7 +17,7 @@ FusionCharts.ready(function(){
         "numberSuffix": "%",
         "showValue": "0",
         "showhovereffect": "1",
-        "bgCOlor": "#ffffff",
+        "bgCOlor": "#ececec",
         "borderAlpha": "0",
         "cylFillColor": "#008ee4"
       },
@@ -37,11 +37,11 @@ FusionCharts.ready(function(){
     dataFormat: 'json',
     id: 'fuelMeter2',
     renderAt: 'chart-container2',
-    width: '200',
-    height: '250',
+    width: '250',
+    height: '300',
     dataSource: {
       "chart": {
-        "caption": "残量",
+        "caption": "ダミー",
         "subcaptionFontBold": "0",
         "lowerLimit": "0",
         "upperLimit": "100",
@@ -50,7 +50,7 @@ FusionCharts.ready(function(){
         "numberSuffix": "%",
         "showValue": "0",
         "showhovereffect": "1",
-        "bgCOlor": "#ffffff",
+        "bgCOlor": "#ececec",
         "borderAlpha": "0",
         "cylFillColor": "eeeeee"
       },
@@ -70,11 +70,11 @@ FusionCharts.ready(function(){
     dataFormat: 'json',
     id: 'fuelMeter3',
     renderAt: 'chart-container3',
-    width: '200',
-    height: '250',
+    width: '250',
+    height: '300',
     dataSource: {
       "chart": {
-        "caption": "残量",
+        "caption": "サプリメント",
         "subcaptionFontBold": "0",
         "lowerLimit": "0",
         "upperLimit": "100",
@@ -83,7 +83,7 @@ FusionCharts.ready(function(){
         "numberSuffix": "%",
         "showValue": "0",
         "showhovereffect": "1",
-        "bgCOlor": "#ffffff",
+        "bgCOlor": "#ececec",
         "borderAlpha": "0",
         "cylFillColor": "F92500"
       },
@@ -91,13 +91,6 @@ FusionCharts.ready(function(){
     },
     "events":{
       "rendered": function(evtObj, argObj){
-        /*
-        setInterval(function () {
-          vol = 512
-          FusionCharts("fuelMeter3").feedData("&value=" + vol);
-          $("#present-number").text(Math.round((vol*100/1023),2) + "%")
-        }, 1000);
-        */
       }
     }
   }).render();
@@ -111,6 +104,7 @@ setInterval(function () {
   var consVolume = fuelVolume -(Math.floor(Math.random() * 3));
   FusionCharts("fuelMeter2").feedData("&value=" + consVolume);
   fuelVolume = consVolume;
+  $("#fuelMeter2_tag").html(consVolume+"%")
 }, 1000);
 
 
@@ -130,7 +124,7 @@ $(document).ready(function(){
     switch (data.instr_name) {
       case "water_sever":
         chart_name = "fuelMeter"
-        empty_weight = 500
+        empty_weight = 550
         break;
       case "supplement":
         chart_name = "fuelMeter3"
@@ -152,6 +146,7 @@ $(document).ready(function(){
     if (chart_name) {
       console.log(chart_name);
       FusionCharts(chart_name).feedData("&value=" + vol);
+      $("#"+chart_name+"_tag").html(vol+"%")
     }
   })
 
