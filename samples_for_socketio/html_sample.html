@@ -2,7 +2,7 @@
 <html>
 <head></head>
 <body>
-  <ul id="msg_list"></ul>
+  <div id="msg_list"></div>
   <form action="" method="post" onsubmit="return false;">
     <input type="text" class="text" id="message"/>
     <input type="submit" class="button" id="send" value="送信" />
@@ -21,11 +21,12 @@ var socket = io.connect(url);
 
 //サーバから受け取るイベントを作成
 socket.on("real_time_report", function (data) {
-  $("#msg_list").prepend("<li>" + "======= !!NEW DATA!! ====="+ "</li>")
-  $("#msg_list").prepend("<li>" + ""+ "</li>")
+  var contents="";
   for (var key in data){
-    $("#msg_list").prepend("<li>" + key+ " : " +  data[key]+ "</li>");
+    var temp_data = ("<li>" + key+ " : " +  data[key]+ "</li>");
+    contents += temp_data
   }
+  $("#msg_list").html(contents)
 });
 
 //ボタンクリック時に、メッセージ送信
