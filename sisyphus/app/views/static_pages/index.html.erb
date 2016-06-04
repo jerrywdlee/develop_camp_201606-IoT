@@ -1,5 +1,25 @@
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-
-<div id ="chart-container" style="float:left;">Demo graph</div>
-<div id="chart-container2" style="float:left;">Demo graph</div>
-<div id="chart-container3">Demo graph</div>
+<div data-role="page" id="topPage" >
+  <div data-role="header" style="background-color:rgba(253,102,2,0.5)">
+    <h1 style="font-size:2em;padding: 5px;color:rgba(128,128,128,0.0)">残量チェッカー</h1>
+  </div>
+  <div data-role="content" style="position: relative;overflow: hidden;">
+    <div style="float: left;position: relative;left: 50%;">
+      <div class="chart-container" style="position: relative;left: -50%;float:left;">
+        <div id ="chart-container" >Demo graph</div>
+        <div id="fuelMeter_tag" style="text-align:center;font-size:1.2em;">chart-container_tag</div>
+      </div>
+      <div class="chart-container2" style="position: relative;left: -50%;float:left;">
+        <div id="chart-container2" >Demo graph</div>
+        <div  id="fuelMeter2_tag" style="text-align:center;font-size:1.2em;">chart-container2_tag</div>
+      </div>
+      <div class="chart-container3" style="position: relative;left: -50%;float:left;">
+        <div id="chart-container3" >Demo graph</div>
+        <div  id="fuelMeter3_tag" style="text-align:center;font-size:1.2em;">chart-container3_tag</div>
+      </div>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed" style="background-color:rgba(253,102,2,0.5)">
+    <h6 style="font-size:1.2em;padding: 5px;color:rgba(128,128,128,0.0)">TEMONA .INC</h6>
+  </div>
+</div>
