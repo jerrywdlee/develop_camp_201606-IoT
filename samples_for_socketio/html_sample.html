@@ -26,6 +26,11 @@ socket.on("real_time_report", function (data) {
     var temp_data = ("<li>" + key+ " : " +  data[key]+ "</li>");
     contents += temp_data
   }
+  console.log(data.raw_data);
+  var raw_data = JSON.parse(data.raw_data)
+  for (var i in raw_data) {
+    console.log(raw_data[i]);
+  }
   $("#msg_list").html(contents)
 });
 
