@@ -1,3 +1,8 @@
+//接続先の指定
+var url = "http://localhost:3333";
+//接続
+var socket = io.connect(url);
+
 FusionCharts.ready(function(){
   var fuelVolume = 110,
   fuelWidget = new FusionCharts({
@@ -27,10 +32,14 @@ FusionCharts.ready(function(){
     "events":{
       "rendered": function(evtObj, argObj){
         setInterval(function () {
-          (fuelVolume < 10) ? (fuelVolume = 110) : "";
-          var consVolume = fuelVolume -(Math.floor(Math.random() * 3));
-          FusionCharts("fuelMeter").feedData("&value=" + consVolume);
-          fuelVolume = consVolume;
+          socket.on("real_time_report", function(data){
+            FusionCharts("fuelMeter").feedData("&value=" + data.raw_data.match(/\d+/)[0]);
+          }
+            )
+          // (fuelVolume < 10) ? (fuelVolume = 110) : "";
+          // var consVolume = "30"
+          // FusionCharts("fuelMeter").feedData("&value=" + consVolume);
+          // fuelVolume = consVolume;
         }, 1000);
       }
     }
