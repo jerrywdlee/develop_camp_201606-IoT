@@ -153,8 +153,8 @@ $(document).ready(function(){
         type: "POST",
         url: 'http://localhost:3000/users/',
         data: {
-            "name": data.device_name,
-            "uuid": data.device_uuid,
+            "name": data.instr_name,
+            "uuid": data.instr_name,
             "ip" : data.client_local_ip
         },
         success: function(msg){
@@ -169,8 +169,8 @@ $(document).ready(function(){
         type: "POST",
         url: 'http://localhost:3000/time_ots',
         data: {
-            "present": data.raw_data.match(/\d+/)[0],
-            "device_id" : data.device_uuid
+            "present": vol,
+            "device_id" : data.instr_name
         },
         success: function(msg){
           console.log('Success' + msg);
