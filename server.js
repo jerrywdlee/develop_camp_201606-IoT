@@ -44,8 +44,8 @@ io.on('connection', function(socket) {
   socket.on('send_data_realtime',function (target_name,instr_name,msg) {
     if (true) {
       console.log(target_name+":"+instr_name+":"+msg);
-      //io.sockets.to(name_id_table[target_name]).emit('real_time_control',instr_name,msg);
-      socket.broadcast.emit('real_time_control',instr_name,msg);
+      io.sockets.to(name_id_table[target_name]).emit('real_time_control',instr_name,msg);
+      //socket.broadcast.emit('real_time_control',instr_name,msg);
     }
   })
   socket.on('network_delay',function (target_name) {

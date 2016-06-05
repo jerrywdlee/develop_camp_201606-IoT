@@ -1,4 +1,16 @@
 <div>All User</div>
-<% @users.each do |user| %>
-  <div><%= link_to user.name, user_path(user) %></div>
-<% end %>
+<div data-role="page" id="topPage" >
+  <div data-role="header" style="background-color:rgba(253,102,2,0.5)">
+    <h1 style="font-size:2em;padding: 5px;color:rgba(128,128,128,0.0)">残量チェッカー</h1>
+  </div>
+  <div data-role="content" style="position: relative;overflow: hidden;">
+    <div style="float: left;position: relative;left: 50%;">
+      <% @users.each do |user| %>
+        <div style="text-align:center;font-size:1.2em;"><%= link_to user.name, user_path(user) %></div>
+      <% end %>
+    </div>
+  </div>
+  <div data-role="footer" data-position="fixed" style="background-color:rgba(253,102,2,0.5)">
+    <h6 style="font-size:1.2em;padding: 5px;color:rgba(128,128,128,0.0)">TEMONA .INC</h6>
+  </div>
+</div>

@@ -1,9 +1,22 @@
-<%= @user.name %>
-<%= line_chart @user.time_ots.pluck(:created_at, :present),
-     library: {
-       title: 'Over Time Graph',
-       backgroundColor: "#eee",
-       width: 1000,
-       hAxis: { title: "Time"},
-       vAxis: { title: "Present", maxValue: 100, ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]},
-     } %>
+
+     <div data-role="page" id="topPage" >
+       <div data-role="header" style="background-color:rgba(253,102,2,0.5)">
+         <a href="/" data-icon="home">トップ</a>
+         <h1 style="font-size:2em;padding: 5px;color:rgba(128,128,128,0.0)"><%= @user.name %></h1>
+       </div>
+       <div data-role="content" >
+         <div >
+           <%= line_chart @user.time_ots.pluck(:created_at, :present),
+                library: {
+                  title: 'Over Time Graph',
+                  backgroundColor: "#eee",
+                  width: 1000,
+                  hAxis: { title: "Time"},
+                  vAxis: { title: "Present", maxValue: 100, ticks: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]},
+                } %>
+         </div>
+       </div>
+       <div data-role="footer" data-position="fixed" style="background-color:rgba(253,102,2,0.5)">
+         <h6 style="font-size:1.2em;padding: 5px;color:rgba(128,128,128,0.0)">TEMONA .INC</h6>
+       </div>
+     </div>

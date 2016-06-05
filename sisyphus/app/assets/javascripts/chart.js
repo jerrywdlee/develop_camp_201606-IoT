@@ -151,7 +151,7 @@ $(document).ready(function(){
       $("#"+chart_name+"_tag").html("残量："+vol+"%");
       $.ajax({
         type: "POST",
-        url: 'http://localhost:3000/users/',
+        url: '/users/',
         data: {
             "name": data.instr_name,
             "uuid": data.instr_name,
@@ -167,7 +167,7 @@ $(document).ready(function(){
 
       $.ajax({
         type: "POST",
-        url: 'http://localhost:3000/time_ots',
+        url: '/time_ots',
         data: {
             "present": vol,
             "device_id" : data.instr_name
@@ -186,5 +186,5 @@ $(document).ready(function(){
     if (socket&&water_sever_lvl) {
       socket.emit("send_data_realtime","raspi_a_02","led_gague",water_sever_lvl)
     }
-  },1900)
+  },1600)
 });
