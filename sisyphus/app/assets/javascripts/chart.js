@@ -148,7 +148,37 @@ $(document).ready(function(){
     if (chart_name) {
       console.log(chart_name+":"+vol);
       FusionCharts(chart_name).feedData("&value=" + vol);
-      $("#"+chart_name+"_tag").html("残量："+vol+"%")
+      $("#"+chart_name+"_tag").html("残量："+vol+"%");
+      $.ajax({
+        type: "POST",
+        url: 'http://localhost:3000/users/',
+        data: {
+            "name": data.device_name,
+            "uuid": data.device_uuid,
+            "ip" : data.client_local_ip
+        },
+        success: function(msg){
+          console.log('Success' + msg);
+        },
+        error: function(msg){
+          console.log('Success' + msg);
+        }
+      });
+
+      $.ajax({
+        type: "POST",
+        url: 'http://localhost:3000/time_ots',
+        data: {
+            "present": data.raw_data.match(/\d+/)[0],
+            "device_id" : data.device_uuid
+        },
+        success: function(msg){
+          console.log('Success' + msg);
+        },
+        error: function(msg){
+          console.log('Success' + msg);
+        }
+      });
     }
   })
   setInterval(function () {
