@@ -30,19 +30,22 @@ io.on('connection', function(socket) {
     //}
   })
   socket.on('real_time_report',function (temp_data_obj) {
+    //console.log(temp_data_obj);
     if (temp_data_obj.raw_data.toString().replace(/[\n\r]/g,"").replace(" ","") != "") {
       temp_data_obj.socket_id = id;
       temp_data_obj.device_name = userIdType[id].device_name;
       temp_data_obj.device_uuid = userIdType[id].uuid;
       temp_data_obj.client_local_ip = client_ip;
       //temp_data_obj.network_delay = network_delay;
-      console.log("temp_data_obj:"+temp_data_obj);
+      //console.log("temp_data_obj:"+temp_data_obj);
       socket.broadcast.emit('real_time_report',temp_data_obj);
     }
   })
   socket.on('send_data_realtime',function (target_name,instr_name,msg) {
     if (true) {
-      io.sockets.to(name_id_table[target_name]).emit('real_time_control',instr_name,msg);
+      console.log(target_name+":"+instr_name+":"+msg);
+      //io.sockets.to(name_id_table[target_name]).emit('real_time_control',instr_name,msg);
+      socket.broadcast.emit('real_time_control',instr_name,msg);
     }
   })
   socket.on('network_delay',function (target_name) {

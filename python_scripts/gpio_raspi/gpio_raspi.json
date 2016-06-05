@@ -1,0 +1,10 @@
+{
+"engine" : "python",
+"entrance" : "gpio_raspi.py" ,
+"exec" : "python gpio_raspi",
+"argv" : [],
+"exec_mode" : false,
+"multiprocess":true,
+"db_record":{"real_time":false},
+"author" : "Jerry Lee"
+}
