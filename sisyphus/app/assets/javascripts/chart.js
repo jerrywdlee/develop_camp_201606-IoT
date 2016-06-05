@@ -8,7 +8,7 @@ $(document).ready(function(){
       id: 'fuelMeter',
       renderAt: 'chart-container',
       width: '250',
-      height: '300',
+      height: '400',
       dataSource: {
         "chart": {
           "caption": "ウォーターサーバ",
@@ -41,7 +41,7 @@ $(document).ready(function(){
       id: 'fuelMeter2',
       renderAt: 'chart-container2',
       width: '250',
-      height: '300',
+      height: '400',
       dataSource: {
         "chart": {
           "caption": "ダミー",
@@ -74,7 +74,7 @@ $(document).ready(function(){
       id: 'fuelMeter3',
       renderAt: 'chart-container3',
       width: '250',
-      height: '300',
+      height: '400',
       dataSource: {
         "chart": {
           "caption": "サプリメント",
@@ -115,10 +115,11 @@ $(document).ready(function(){
   //接続
   var socket = io.connect(url);
 
+  var water_sever_lvl =0;
   socket.on("real_time_report", function(data){
     var chart_name
     var empty_weight =0
-    //console.log(raw_data);
+    console.log(raw_data);
     switch (data.instr_name) {
       case "water_sever":
         chart_name = "fuelMeter"
@@ -128,24 +129,32 @@ $(document).ready(function(){
         chart_name = "fuelMeter3"
         empty_weight = 200
       default:
-        chart_name = "fuelMeter3"
+        //chart_name = "fuelMeter3"
     }
     var vol = 0;
     var raw_data = JSON.parse(data.raw_data)
     for (var i in raw_data) {
       console.log(raw_data);
-      console.log(raw_data[i]);
+      //console.log(raw_data[i]);
       vol = Math.round(((raw_data[i]-empty_weight)*100/(1023- empty_weight) ),2)
       if (vol<0) {
         vol =0
       }
+      if (data.instr_name=="water_sever") {
+        water_sever_lvl = vol;
+      }
       console.log(vol);
     }
     if (chart_name) {
-      console.log(chart_name);
+      console.log(chart_name+":"+vol);
       FusionCharts(chart_name).feedData("&value=" + vol);
       $("#"+chart_name+"_tag").html("残量："+vol+"%")
     }
   })
-
+  setInterval(function () {
+    //console.log("send_data_realtime"+water_sever_lvl);
+    if (socket&&water_sever_lvl) {
+      socket.emit("send_data_realtime","raspi_a_02","led_gague",water_sever_lvl)
+    }
+  },1900)
 });
