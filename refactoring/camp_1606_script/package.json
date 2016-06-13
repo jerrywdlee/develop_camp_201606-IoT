@@ -1,0 +1,16 @@
+{
+  "name": "camp_1606_script",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "rpio": "^0.9.11",
+    "sleep": "^3.0.1",
+    "thread-sleep": "^1.0.4"
+  }
+}

@@ -1,0 +1,10 @@
+{
+"engine" : "node",
+"entrance" : "app.js" ,
+"exec" : "node app",
+"argv" : [],
+"exec_mode" : false,
+"multiprocess":true,
+"db_record":{"real_time":false},
+"author" : "YOUR.org"
+}

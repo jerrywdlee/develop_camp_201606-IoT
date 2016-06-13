@@ -30,7 +30,7 @@ io.on('connection', function(socket) {
     //}
   })
   socket.on('real_time_report',function (temp_data_obj) {
-    //console.log(temp_data_obj);
+    console.log(temp_data_obj);
     if (temp_data_obj.raw_data.toString().replace(/[\n\r]/g,"").replace(" ","") != "") {
       temp_data_obj.socket_id = id;
       temp_data_obj.device_name = userIdType[id].device_name;
@@ -48,6 +48,21 @@ io.on('connection', function(socket) {
       //socket.broadcast.emit('real_time_control',instr_name,msg);
     }
   })
+  setInterval(function () {
+    //var instr_name = "test_node_test"
+    var instr_name = "test_rb2"
+    var msg = Date.now()
+    var target_name = "TestDevice01"
+    console.log(instr_name +" "+msg);
+    //socket.emit('real_time_control',instr_name,msg)
+    //io.sockets.to(name_id_table[target_name]).emit('real_time_control',instr_name,msg);
+    //socket.broadcast.emit('real_time_control',instr_name,msg);
+    socket.broadcast.emit('test_test',instr_name,msg);//broadcast have some problem
+    io.sockets.emit('real_time_control',instr_name,msg)
+  },2000)
+
+
+
   socket.on('network_delay',function (target_name) {
     startTime = Date.now();
     console.log("startTime:"+startTime);
