@@ -186,5 +186,5 @@ $(document).ready(function(){
     if (socket&&water_sever_lvl) {
       socket.emit("send_data_realtime","raspi_a_02","led_gague",water_sever_lvl)
     }
-  },1600)
+  },2500)
 });

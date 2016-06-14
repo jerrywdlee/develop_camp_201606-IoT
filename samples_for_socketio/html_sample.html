@@ -5,7 +5,7 @@
   <div id="msg_list"></div>
   <form action="" method="post" onsubmit="return false;">
     <input type="text" class="text" id="message"/>
-    <input type="submit" class="button" id="send" value="送信" />
+    <input type="submit" class="button" id="send" value="Send" />
   </form>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -14,10 +14,26 @@
 <script type="text/javascript">
 
 //接続先の指定
-var url = "http://localhost:3333";
+var url = "http://894bbcd4.ngrok.io";
 
 //接続
 var socket = io.connect(url);
+
+socket.on('connect',function () {
+  console.log("connected!!");
+})
+var lag = NaN
+var time_old = Date.now()
+setInterval(function () {
+  time_old=Date.now()
+  socket.emit('ping_test',time_old)
+  console.log('emited :'+time_old);
+}, 3000);
+
+socket.on('pong',function (time_o) {
+  lag = Date.now() - time_o
+  console.log("Lag = "+lag);
+})
 
 //サーバから受け取るイベントを作成
 socket.on("real_time_report", function (data) {
