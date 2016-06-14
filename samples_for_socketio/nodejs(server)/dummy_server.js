@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
     console.log("dummy_data:");
     console.log(dummy_data);
     socket.broadcast.emit('real_time_report',dummy_data);
-  },5000)
+  },10000)
 
 
   socket.on('send_data_realtime',function (target_name,instr_name,msg) {
@@ -91,6 +91,10 @@ io.on('connection', function(socket) {
       console.log(userIdType);
   });
 
+  socket.on('ping_test',function (time_old) {
+    console.log('Pinged:'+time_old);
+    socket.emit('pong',time_old)
+  })
 });
 
 function show_client_ip(socket,no_port) {
