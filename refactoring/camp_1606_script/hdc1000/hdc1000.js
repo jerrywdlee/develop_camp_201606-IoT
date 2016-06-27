@@ -4,7 +4,7 @@ const child = require('child_process');
 // sudo nano /boot/config.txt => dtparam=i2c_arm=on
 // sudo apt-get install python-smbus
 
-var hdc1000 = child.spawn( 'python',['-u',"./read_temp_hum.py"],{stdio:[ 'pipe',null,null, 'pipe' ]});
+var hdc1000 = child.spawn( 'python',['-u',__dirname+"/read_temp_hum.py"],{stdio:[ 'pipe',null,null, 'pipe' ]});
 hdc1000.stdout.setEncoding('utf8');
 
 process.stdin.on('data',function (data) {
@@ -16,9 +16,13 @@ process.stdin.on('data',function (data) {
 hdc1000.stdout.on('data', function (data) {
   data = data.toString().replace(/[\n\r]/g,"")
   //console.log('stdout: ' + data);
-  data = JSON.parse(data)
-  console.log(data);
-  console.log(my_round(data.Temp,2));
+  try {
+      data = JSON.parse(data)
+  } catch (e) {
+
+  }
+  console.log(JSON.stringify(data));
+  //console.log(my_round(data.Temp,2));
 });
 hdc1000.stderr.on('data', function (data) {
   data = data.toString().replace(/[\n\r]/g,"")

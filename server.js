@@ -48,6 +48,7 @@ io.on('connection', function(socket) {
       //socket.broadcast.emit('real_time_control',instr_name,msg);
     }
   })
+  /*
   setInterval(function () {
     //var instr_name = "test_node_test"
     var instr_name = "test_rb2"
@@ -60,7 +61,7 @@ io.on('connection', function(socket) {
     socket.broadcast.emit('test_test',instr_name,msg);//broadcast have some problem
     io.sockets.emit('real_time_control',instr_name,msg)
   },2000)
-
+*/
 
 
   socket.on('network_delay',function (target_name) {

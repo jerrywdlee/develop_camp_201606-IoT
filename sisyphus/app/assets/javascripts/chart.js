@@ -36,7 +36,7 @@ $(document).ready(function(){
   FusionCharts.ready(function(){
     //var fuelVolume = 110,
     fuelWidget = new FusionCharts({
-      type: 'cylinder',
+      type: 'thermometer',
       dataFormat: 'json',
       id: 'fuelMeter2',
       renderAt: 'chart-container2',
@@ -44,20 +44,18 @@ $(document).ready(function(){
       height: '400',
       dataSource: {
         "chart": {
-          "caption": "ダミー",
+          "caption": "湿度計",
           "subcaptionFontBold": "0",
           "lowerLimit": "0",
-          "upperLimit": "100",
-          "lowerLimitDisplay": "Empty",
-          "upperLimitDisplay": "Full",
+          "upperLimit": "80",
           "numberSuffix": "%",
           "showValue": "0",
           "showhovereffect": "1",
           "bgCOlor": "#ececec",
           "borderAlpha": "0",
-          "cylFillColor": "eeeeee"
+          "thmFillColor": "eeeeee"
         },
-        "value": "110"
+        "value": "0"
       },
       "events":{
         "rendered": function(evtObj, argObj){
@@ -69,7 +67,7 @@ $(document).ready(function(){
   FusionCharts.ready(function(){
     //var fuelVolume = 110,
     fuelWidget = new FusionCharts({
-      type: 'cylinder',
+      type: 'thermometer',
       dataFormat: 'json',
       id: 'fuelMeter3',
       renderAt: 'chart-container3',
@@ -77,18 +75,18 @@ $(document).ready(function(){
       height: '400',
       dataSource: {
         "chart": {
-          "caption": "サプリメント",
+          "caption": "温度計",
           "subcaptionFontBold": "0",
           "lowerLimit": "0",
-          "upperLimit": "100",
-          "lowerLimitDisplay": "Empty",
-          "upperLimitDisplay": "Full",
-          "numberSuffix": "%",
+          "upperLimit": "50",
+          //"lowerLimitDisplay": "Empty",
+          //"upperLimitDisplay": "Full",
+          "numberSuffix": "°C",
           "showValue": "0",
           "showhovereffect": "1",
           "bgCOlor": "#ececec",
           "borderAlpha": "0",
-          "cylFillColor": "F92500"
+          "thmFillColor": "F92500"
         },
         "value": "0"
       },
@@ -101,7 +99,8 @@ $(document).ready(function(){
 
 
   // ダミーのチャート
-  var fuelVolume = 110
+  //var fuelVolume = 110
+  /*
   setInterval(function () {
     (fuelVolume < 10) ? (fuelVolume = 110) : "";
     var consVolume = fuelVolume -(Math.floor(Math.random() * 3));
@@ -109,9 +108,9 @@ $(document).ready(function(){
     fuelVolume = consVolume;
     $("#fuelMeter2_tag").html("残量："+consVolume+"%")
   }, 1000);
+*/
 
-
-  var url = "http://192.168.3.11:3333";
+  var url = "http://localhost:3333";
   //接続
   var socket = io.connect(url);
 
@@ -120,6 +119,20 @@ $(document).ready(function(){
     var chart_name
     var empty_weight =0
     console.log(raw_data);
+    var raw_data = JSON.parse(data.raw_data)
+    vol1 = Math.round((100*raw_data.pressure/900),2)
+    FusionCharts("fuelMeter").feedData("&value=" + vol1);
+    $("#fuelMeter_tag").html("残量："+vol1+"%")
+
+    Temp = raw_data.Temp
+    FusionCharts("fuelMeter3").feedData("&value=" + Temp);
+    $("#fuelMeter3_tag").html("温度："+Temp+"°C")
+
+    Humi = raw_data.Humi
+    FusionCharts("fuelMeter2").feedData("&value=" + Humi);
+    $("#fuelMeter2_tag").html("湿度："+Humi+"%")
+
+
     switch (data.instr_name) {
       case "water_sever":
         chart_name = "fuelMeter"
@@ -132,7 +145,7 @@ $(document).ready(function(){
         //chart_name = "fuelMeter3"
     }
     var vol = 0;
-    var raw_data = JSON.parse(data.raw_data)
+
     for (var i in raw_data) {
       console.log(raw_data);
       //console.log(raw_data[i]);
@@ -181,10 +194,12 @@ $(document).ready(function(){
       });
     }
   })
+  /*
   setInterval(function () {
     //console.log("send_data_realtime"+water_sever_lvl);
     if (socket&&water_sever_lvl) {
       socket.emit("send_data_realtime","raspi_a_02","led_gague",water_sever_lvl)
     }
   },2500)
+  */
 });
